@@ -17,6 +17,43 @@ const Page = () => {
   const [recentBlogs, setRecentBlogs] = useState([]);
   const [categories, setCategories] = useState([]);
 
+    useEffect(() => {
+    if (blog) {
+      // Update page title
+      document.title = blog.meta_title || blog.title;
+      
+      // Update meta description
+      let metaDescription = document.querySelector('meta[name="description"]');
+      if (!metaDescription) {
+        // Create meta description if it doesn't exist
+        metaDescription = document.createElement('meta');
+        metaDescription.name = 'description';
+        document.head.appendChild(metaDescription);
+      }
+      
+      const descriptionContent = blog.meta_description || 
+        (blog.content ? blog.content.replace(/<[^>]*>/g, '').substring(0, 160) + '...' : '');
+      metaDescription.setAttribute('content', descriptionContent);
+
+      // Update Open Graph tags for social sharing
+      updateMetaTag('property', 'og:title', blog.meta_title || blog.title);
+      updateMetaTag('property', 'og:description', descriptionContent);
+      updateMetaTag('property', 'og:image', `https://dameta1.com/dameta-backend/public/${blog.image}`);
+      updateMetaTag('property', 'og:url', window.location.href);
+    }
+  }, [blog]); // This runs every time blog data changes
+
+  // Helper function to update/create meta tags
+  const updateMetaTag = (attr, name, content) => {
+    let metaTag = document.querySelector(`meta[${attr}="${name}"]`);
+    if (!metaTag) {
+      metaTag = document.createElement('meta');
+      metaTag.setAttribute(attr, name);
+      document.head.appendChild(metaTag);
+    }
+    metaTag.setAttribute('content', content);
+  };
+
   // Fetch blogs + categories
   useEffect(() => {
     axios
