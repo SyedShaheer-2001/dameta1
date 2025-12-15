@@ -7,6 +7,9 @@ import { IoShareSocialSharp } from "react-icons/io5";
 import { FaFacebookF } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa6";
+import { FaLinkedinIn } from "react-icons/fa6";
+import { FaInstagram  } from "react-icons/fa6";
+import { FaPinterestP   } from "react-icons/fa6";
 import Link from "next/link";
 import AnimatedBtn from "@/components/ui/AnimatedBtn";
 
@@ -172,11 +175,34 @@ const Page = () => {
 ></div> 
           {/* AUTHOR + SOCIAL */}
           <div className="w-full my-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <h1 className="exo text-lg sm:text-xl font-medium">By {blog.author}</h1>
+            <h1 className="exo text-lg sm:text-xl font-medium">
+              By {blog.author}
+            </h1>
+
             <div className="flex gap-6">
-              <Link href="#"><FaFacebookF className="size-4 sm:size-5" /></Link>
-              <Link href="#"><FaXTwitter className="size-4 sm:size-5" /></Link>
-              <Link href="#"><FaYoutube className="size-5 sm:size-6" /></Link>
+              <Link href="#" aria-label="Facebook">
+                <FaFacebookF className="size-4 sm:size-5" />
+              </Link>
+
+              <Link href="#" aria-label="Twitter / X">
+                <FaXTwitter className="size-4 sm:size-5" />
+              </Link>
+
+              <Link href="#" aria-label="YouTube">
+                <FaYoutube className="size-5 sm:size-6" />
+              </Link>
+
+              <Link href="#" aria-label="Instagram">
+                <FaInstagram className="size-4 sm:size-5" />
+              </Link>
+
+              <Link href="#" aria-label="LinkedIn">
+                <FaLinkedinIn className="size-4 sm:size-5" />
+              </Link>
+
+              <Link href="#" aria-label="Pinterest">
+                <FaPinterestP className="size-4 sm:size-5" />
+              </Link>
             </div>
           </div>
 
