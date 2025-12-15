@@ -17,6 +17,25 @@ const Page = () => {
   const [recentBlogs, setRecentBlogs] = useState([]);
   const [categories, setCategories] = useState([]);
 
+  // for form
+   const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+    saveInfo: false
+  });
+
+  // 🔥 Add this submit handler
+  const handleSubmit = () => {
+  console.log('formdata', formData)
+    setFormData(
+    {name: '',
+    email: '',
+    message: '',
+    saveInfo: false}
+  )
+  };
+
     useEffect(() => {
     if (blog) {
       // Update page title
@@ -78,9 +97,6 @@ const Page = () => {
       .then((res) => setCategories(res.data.categories));
   }, [slug]);
 
-  console.log('recentBlogs', recentBlogs)
-
-
 
   // Get category names using category_ids
   const getCategoryNames = (ids) => {
@@ -111,7 +127,7 @@ const Page = () => {
   
   const categoryList = getCategoryNames(blog.category_ids);
 
-  console.log('categoryList', categoryList)
+  console.log('categoryList1111', categoryList)
 
   const imageUrl = `https://dameta1.com/dameta-backend/public/${blog.image}`;
 
@@ -171,25 +187,25 @@ const Page = () => {
 
             <div className="flex flex-col sm:flex-row gap-5 w-full">
               <div className="relative w-full">
-                <input type="text" id="name" className="peer exo w-full border-b border-zinc-400 text-sm outline-none py-3 placeholder-transparent" placeholder="Name" />
+                <input value={formData.name}  onChange={(e) => setFormData(prev => ({...prev, name: e.target.value}))} type="text" id="name" className="peer exo w-full border-b border-zinc-400 text-sm outline-none py-3 placeholder-transparent" placeholder="Name" />
                 <label htmlFor="name" className="exo absolute left-0 top-3 text-zinc-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-[-5px]">Name</label>
               </div>
               <div className="relative w-full">
-                <input type="email" id="email" className="peer exo w-full border-b border-zinc-400 text-sm outline-none py-3 placeholder-transparent" placeholder="Email" />
+                <input value={formData.email} onChange={(e) => setFormData(prev => ({...prev, email: e.target.value}))} type="email" id="email" className="peer exo w-full border-b border-zinc-400 text-sm outline-none py-3 placeholder-transparent" placeholder="Email" />
                 <label htmlFor="email" className="exo absolute left-0 top-3 text-zinc-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-[-5px]">Email</label>
               </div>
             </div>
 
             <div className="relative w-full">
-              <textarea id="message" rows="5" className="peer exo w-full border-b border-zinc-400 text-sm outline-none py-3 placeholder-transparent resize-none" placeholder="message"></textarea>
+              <textarea value={formData.message} onChange={(e) => setFormData(prev => ({...prev, message: e.target.value}))} id="message" rows="5" className="peer exo w-full border-b border-zinc-400 text-sm outline-none py-3 placeholder-transparent resize-none" placeholder="message"></textarea>
               <label htmlFor="message" className="exo absolute left-0 top-3 text-zinc-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-[-5px]">Message</label>
             </div>
 
             <div className="flex items-start gap-3">
-              <input id="check" type="checkbox" />
+              <input onChange={(e) => setFormData(prev => ({...prev, saveInfo: e.target.checked}))}  checked={formData.saveInfo} id="check" type="checkbox" />
               <label htmlFor="check" className="exo text-base sm:text-lg">Save my name, email, and website in this browser for the next time I comment.</label>
             </div>
-            <AnimatedBtn />
+            <AnimatedBtn onClick={handleSubmit} />
           </div>
         </div>
 

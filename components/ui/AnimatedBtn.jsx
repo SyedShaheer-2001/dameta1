@@ -1,9 +1,9 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 
-const AnimatedBtn = () => {
+const AnimatedBtn = ({ onClick }) => {
   return (
-    <button className="group relative w-fit overflow-hidden rounded-full border-2 border-transparent bg-transparent px-4 py-3 font-semibold text-white transition-all duration-300 ease-in-out">
+    <button onClick={onClick} className="group relative w-fit overflow-hidden rounded-full border-2 border-transparent bg-transparent px-4 py-3 font-semibold text-white transition-all duration-300 ease-in-out">
       <span className="absolute inset-0 rounded-full p-[2px] bg-[#f14f44] cursor-pointer">
         <span className="flex h-full w-full rounded-full bg-transparent " />
       </span>
